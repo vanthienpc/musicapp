@@ -32,7 +32,7 @@ function Home(): React.ReactElement {
         <FilterGenre handleOnClick={handleFilterGenre} />
         <Results filterValue={filterValue} />
       </MainContent>
-      <Footer>@2020 Created by Thien Vo</Footer>
+      <Footer>@2021 Created by Thien Vo</Footer>
     </Layout>
   );
 }
