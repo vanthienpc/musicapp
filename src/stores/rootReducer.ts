@@ -6,7 +6,7 @@ import ErrorReducer from './error/ErrorReducer';
 import RequestReducer from './request/RequestReducer';
 import MusicVideoReducer from './musicVideo/MusicVideoReducer';
 
-const rootReducer = (history: History): Reducer<StoreModel> =>
+const rootReducer = (history: History): Reducer =>
   combineReducers({
     error: ErrorReducer,
     router: connectRouter(history),
