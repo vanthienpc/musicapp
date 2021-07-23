@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input } from 'antd';
 import { Dispatch } from 'redux';
+import debounce from 'lodash/debounce';
 import styled from 'styled-components';
 import { useDispatch } from 'utilities/HookUtility';
 import * as MusicVideoAction from 'stores/musicVideo/MusicVideoAction';
@@ -15,12 +16,17 @@ const SearchField = styled(Input).attrs(() => ({
 const SearchBox: React.FC = () => {
   const dispatch: Dispatch = useDispatch();
 
-  const onSearch: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
-    const { value } = e.currentTarget;
+  const emitChange = (value: string): void => {
     value && dispatch(MusicVideoAction.fetchMusicVideoRequest(value));
   };
 
-  return <SearchField placeholder="Search your entertainment..." onPressEnter={onSearch} />;
+  const emitChangeDebounced = debounce(emitChange, 250);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    emitChangeDebounced(e.target.value);
+  };
+
+  return <SearchField placeholder="Search your entertainment..." onChange={handleChange} />;
 };
 
 export default SearchBox;
